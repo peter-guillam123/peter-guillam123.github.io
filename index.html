@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CJ Moran — Projects & Demos</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #fafafa;
+    color: #1a1a1a;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .header {
+    padding: 48px 24px 40px;
+    text-align: center;
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #052962 100%);
+    color: #fff;
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .header p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.65);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .projects {
+    max-width: 720px;
+    margin: -24px auto 48px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .card {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s, transform 0.2s;
+    display: block;
+  }
+  .card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .card-title {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+  }
+  .card-tag {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .card-desc {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.55;
+    margin-bottom: 12px;
+  }
+
+  .card-links {
+    display: flex;
+    gap: 16px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .card-links a {
+    color: #052962;
+    text-decoration: none;
+  }
+  .card-links a:hover { text-decoration: underline; }
+  .card-links .sep { color: #ddd; }
+
+  .footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    color: #999;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Projects & Demos</h1>
+  <p>Interactive prototypes, editorial tools, and experiments</p>
+</div>
+
+<div class="projects">
+
+  <a class="card" href="https://peter-guillam123.github.io/pretext-guardian-live/demo-3-zero-jank-live-blog.html">
+    <div class="card-header">
+      <div class="card-icon" style="background:#AB0613;color:#fff">&#9888;</div>
+      <span class="card-title">Guardian Live Blog — Breaking Wire</span>
+      <span class="card-tag" style="background:#ffeaea;color:#AB0613">Live</span>
+    </div>
+    <div class="card-desc">
+      Replays the Guardian's Middle East crisis live blog from 29 March 2026 with authentic Guardian styling. New updates arrive with pre-measured slot animations and typewriter text reveal, powered by the Pretext text measurement library. 61 real blocks, original timestamps, zero-jank scroll compensation.
+    </div>
+    <div class="card-links">
+      <a href="https://peter-guillam123.github.io/pretext-guardian-live/demo-3-zero-jank-live-blog.html">Open demo</a>
+      <span class="sep">|</span>
+      <a href="https://github.com/peter-guillam123/pretext-guardian-live">GitHub</a>
+    </div>
+  </a>
+
+  <a class="card" href="https://peter-guillam123.github.io/pretext-guardian-live/demo-1-pull-quote-balancer.html">
+    <div class="card-header">
+      <div class="card-icon" style="background:#052962;color:#FFE500">&#8220;</div>
+      <span class="card-title">Pull Quote Balancer</span>
+      <span class="card-tag" style="background:#eef3ff;color:#052962">Pretext</span>
+    </div>
+    <div class="card-desc">
+      A pull quote embedded in article body copy. Pretext binary-searches for the tightest width that maintains the same line count — the body text reflows around the balanced quote in real-time. Toggle between CSS mode (wasted space) and Pretext mode (shrink-wrapped).
+    </div>
+    <div class="card-links">
+      <a href="https://peter-guillam123.github.io/pretext-guardian-live/demo-1-pull-quote-balancer.html">Open demo</a>
+    </div>
+  </a>
+
+  <a class="card" href="https://peter-guillam123.github.io/pretext-guardian-live/demo-2-fluid-cutout.html">
+    <div class="card-header">
+      <div class="card-icon" style="background:#1a1a2e;color:#FFE500">&#9998;</div>
+      <span class="card-title">Fluid Cutout Article Layout</span>
+      <span class="card-tag" style="background:#eef3ff;color:#052962">Pretext</span>
+    </div>
+    <div class="card-desc">
+      A long-read article with a draggable silhouette cutout. Text reflows around the image in real-time using variable widths per line — each line is individually positioned. Drag the image anywhere and watch the text part like water.
+    </div>
+    <div class="card-links">
+      <a href="https://peter-guillam123.github.io/pretext-guardian-live/demo-2-fluid-cutout.html">Open demo</a>
+    </div>
+  </a>
+
+  <a class="card" href="https://peter-guillam123.github.io/pretext-guardian-live/demo-4-canvas-data-journalism.html">
+    <div class="card-header">
+      <div class="card-icon" style="background:#0a0a1a;color:#ff6b4a">&#9729;</div>
+      <span class="card-title">Canvas Data Journalism</span>
+      <span class="card-tag" style="background:#eef3ff;color:#052962">Pretext</span>
+    </div>
+    <div class="card-desc">
+      Full-screen Canvas climate visualization (1880–2025 temperature anomalies) with animated particles. Hover annotated data points to see Pretext-wrapped text callouts rendered directly on Canvas — no DOM overlays. Callouts adapt width near screen edges.
+    </div>
+    <div class="card-links">
+      <a href="https://peter-guillam123.github.io/pretext-guardian-live/demo-4-canvas-data-journalism.html">Open demo</a>
+    </div>
+  </a>
+
+  <a class="card" href="https://peter-guillam123.github.io/pretext-guardian-live/demo-5-stress-test.html">
+    <div class="card-header">
+      <div class="card-icon" style="background:#0a8a0a;color:#fff">&#9889;</div>
+      <span class="card-title">500-Block Stress Test</span>
+      <span class="card-tag" style="background:#eef3ff;color:#052962">Pretext</span>
+    </div>
+    <div class="card-desc">
+      A grid of 500 Guardian article cards. Drag the width slider to trigger recalculation across every card. DOM panel reads offsetHeight per card (layout thrashing). Pretext panel calls layout() using cached prepare() results. Typically 100–200x faster.
+    </div>
+    <div class="card-links">
+      <a href="https://peter-guillam123.github.io/pretext-guardian-live/demo-5-stress-test.html">Open demo</a>
+    </div>
+  </a>
+
+  <a class="card" href="https://peter-guillam123.github.io/wfrp-character-creator/">
+    <div class="card-header">
+      <div class="card-icon" style="background:#2a1a0a;color:#d4a24e">&#9876;</div>
+      <span class="card-title">WFRP Character Creator</span>
+      <span class="card-tag" style="background:#fef5e7;color:#8a6914">Fan tool</span>
+    </div>
+    <div class="card-desc">
+      Interactive character creator for Warhammer Fantasy Roleplay 4th Edition. Generate characters with species, careers, attributes, skills, and talents following the official ruleset.
+    </div>
+    <div class="card-links">
+      <a href="https://peter-guillam123.github.io/wfrp-character-creator/">Open tool</a>
+      <span class="sep">|</span>
+      <a href="https://github.com/peter-guillam123/wfrp-character-creator">GitHub</a>
+    </div>
+  </a>
+
+</div>
+
+<div class="footer">
+  Built with Claude Code
+</div>
+
+</body>
+</html>
