@@ -112,6 +112,31 @@
   .card-links a:hover { text-decoration: underline; }
   .card-links .sep { color: #ddd; }
 
+  .section-header {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #052962;
+    padding: 24px 0 4px;
+    border-bottom: 2px solid #052962;
+    margin-bottom: -4px;
+  }
+  .section-header:first-child {
+    padding-top: 0;
+  }
+  .section-header.wfrp {
+    color: #8a6914;
+    border-bottom-color: #8a6914;
+  }
+  .wfrp-card {
+    border-color: #e8dcc4;
+    background: #fffcf5;
+  }
+  .wfrp-card:hover {
+    box-shadow: 0 8px 24px rgba(42,26,10,0.1);
+  }
+
   .footer {
     text-align: center;
     padding: 24px;
@@ -129,6 +154,40 @@
 
 <div class="projects">
 
+  <div class="section-header">Editorial & Data Tools</div>
+
+  <a class="card" href="https://peter-guillam123.github.io/guardian-world-map/">
+    <div class="card-header">
+      <div class="card-icon" style="background:#052962;color:#FFE500">&#127758;</div>
+      <span class="card-title">Guardian World News Map</span>
+      <span class="card-tag" style="background:#eef3ff;color:#052962">News</span>
+    </div>
+    <div class="card-desc">
+      Interactive map visualising Guardian news stories geographically. Filter by topic (Conflict, Climate, Politics, Economy, Health, Culture, Sport, Tech) and time window. Stories placed on a world map with freshness indicators.
+    </div>
+    <div class="card-links">
+      <a href="https://peter-guillam123.github.io/guardian-world-map/">Open tool</a>
+      <span class="sep">|</span>
+      <a href="https://github.com/peter-guillam123/guardian-world-map">GitHub</a>
+    </div>
+  </a>
+
+  <a class="card" href="https://peter-guillam123.github.io/Longreaddiscover/">
+    <div class="card-header">
+      <div class="card-icon" style="background:#052962;color:#fff">&#128270;</div>
+      <span class="card-title">Guardian Long Read Search</span>
+      <span class="card-tag" style="background:#eef3ff;color:#052962">Search</span>
+    </div>
+    <div class="card-desc">
+      Search and discover Guardian long-read articles with an interactive browsing interface.
+    </div>
+    <div class="card-links">
+      <a href="https://peter-guillam123.github.io/Longreaddiscover/">Open tool</a>
+      <span class="sep">|</span>
+      <a href="https://github.com/peter-guillam123/Longreaddiscover">GitHub</a>
+    </div>
+  </a>
+
   <a class="card" href="https://peter-guillam123.github.io/pretext-guardian-live/demo-3-zero-jank-live-blog.html">
     <div class="card-header">
       <div class="card-icon" style="background:#AB0613;color:#fff">&#9888;</div>
@@ -136,7 +195,7 @@
       <span class="card-tag" style="background:#ffeaea;color:#AB0613">Live</span>
     </div>
     <div class="card-desc">
-      Replays the Guardian's Middle East crisis live blog from 29 March 2026 with authentic Guardian styling. New updates arrive with pre-measured slot animations and typewriter text reveal, powered by the Pretext text measurement library. 61 real blocks, original timestamps, zero-jank scroll compensation.
+      Replays a Guardian live blog with authentic styling. New updates arrive with pre-measured slot animations and typewriter text reveal, powered by the Pretext text measurement library. Zero-jank scroll compensation.
     </div>
     <div class="card-links">
       <a href="https://peter-guillam123.github.io/pretext-guardian-live/demo-3-zero-jank-live-blog.html">Open demo</a>
@@ -152,7 +211,7 @@
       <span class="card-tag" style="background:#eef3ff;color:#052962">Pretext</span>
     </div>
     <div class="card-desc">
-      A pull quote embedded in article body copy. Pretext binary-searches for the tightest width that maintains the same line count — the body text reflows around the balanced quote in real-time. Toggle between CSS mode (wasted space) and Pretext mode (shrink-wrapped).
+      A pull quote embedded in article body copy. Pretext binary-searches for the tightest width that maintains the same line count — the body text reflows around the balanced quote in real-time.
     </div>
     <div class="card-links">
       <a href="https://peter-guillam123.github.io/pretext-guardian-live/demo-1-pull-quote-balancer.html">Open demo</a>
@@ -166,7 +225,7 @@
       <span class="card-tag" style="background:#eef3ff;color:#052962">Pretext</span>
     </div>
     <div class="card-desc">
-      A long-read article with a draggable silhouette cutout. Text reflows around the image in real-time using variable widths per line — each line is individually positioned. Drag the image anywhere and watch the text part like water.
+      A long-read article with a draggable silhouette cutout. Text reflows around the image in real-time using variable widths per line. Drag the image anywhere and watch the text part like water.
     </div>
     <div class="card-links">
       <a href="https://peter-guillam123.github.io/pretext-guardian-live/demo-2-fluid-cutout.html">Open demo</a>
@@ -180,7 +239,7 @@
       <span class="card-tag" style="background:#eef3ff;color:#052962">Pretext</span>
     </div>
     <div class="card-desc">
-      Full-screen Canvas climate visualization (1880–2025 temperature anomalies) with animated particles. Hover annotated data points to see Pretext-wrapped text callouts rendered directly on Canvas — no DOM overlays. Callouts adapt width near screen edges.
+      Full-screen Canvas climate visualisation (1880-2025 temperature anomalies) with animated particles. Hover annotated data points to see Pretext-wrapped text callouts rendered directly on Canvas.
     </div>
     <div class="card-links">
       <a href="https://peter-guillam123.github.io/pretext-guardian-live/demo-4-canvas-data-journalism.html">Open demo</a>
@@ -194,14 +253,32 @@
       <span class="card-tag" style="background:#eef3ff;color:#052962">Pretext</span>
     </div>
     <div class="card-desc">
-      A grid of 500 Guardian article cards. Drag the width slider to trigger recalculation across every card. DOM panel reads offsetHeight per card (layout thrashing). Pretext panel calls layout() using cached prepare() results. Typically 100–200x faster.
+      A grid of 500 Guardian article cards. Drag the width slider to trigger recalculation across every card. DOM mode layout-thrashes; Pretext mode uses cached measurements. Typically 100-200x faster.
     </div>
     <div class="card-links">
       <a href="https://peter-guillam123.github.io/pretext-guardian-live/demo-5-stress-test.html">Open demo</a>
     </div>
   </a>
 
-  <a class="card" href="https://peter-guillam123.github.io/wfrp-character-creator/">
+  <div class="section-header wfrp">Warhammer Fantasy Roleplay</div>
+
+  <a class="card wfrp-card" href="https://peter-guillam123.github.io/wfrp-test-resolver/">
+    <div class="card-header">
+      <div class="card-icon" style="background:#2a1a0a;color:#d4a24e">&#9881;</div>
+      <span class="card-title">WFRP Test Resolver</span>
+      <span class="card-tag" style="background:#fef5e7;color:#8a6914">Fan tool</span>
+    </div>
+    <div class="card-desc">
+      AI-powered tool for resolving non-combat WFRP 4th Edition tests. Describe a situation and Claude recommends the test type, skill, and difficulty. Supports Simple, Dramatic, Opposed, and Extended tests with manual or automatic dice rolling.
+    </div>
+    <div class="card-links">
+      <a href="https://peter-guillam123.github.io/wfrp-test-resolver/">Open tool</a>
+      <span class="sep">|</span>
+      <a href="https://github.com/peter-guillam123/wfrp-test-resolver">GitHub</a>
+    </div>
+  </a>
+
+  <a class="card wfrp-card" href="https://peter-guillam123.github.io/wfrp-character-creator/">
     <div class="card-header">
       <div class="card-icon" style="background:#2a1a0a;color:#d4a24e">&#9876;</div>
       <span class="card-title">WFRP Character Creator</span>
