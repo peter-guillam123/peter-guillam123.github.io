@@ -4,301 +4,564 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CJ Moran — Projects & Demos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  :root {
+    --bg:        #f6f3ee;
+    --bg-tint:   #efeae1;
+    --ink:       #1a1a1a;
+    --ink-soft:  #5a5650;
+    --ink-mute:  #8a847c;
+    --rule:      #e2dbce;
+    --card:      #ffffff;
+    --editorial: #c7254e;
+    --editorial-wash: #fdf4f7;
+    --editorial-ink:  #5a0b22;
+    --wfrp:      #b8871e;
+    --wfrp-wash: #faf3e2;
+    --wfrp-ink:  #4a340a;
+    --shadow-sm: 0 1px 2px rgba(30,20,10,0.04), 0 2px 6px rgba(30,20,10,0.04);
+    --shadow-md: 0 10px 30px -12px rgba(30,20,10,0.18), 0 4px 12px rgba(30,20,10,0.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:        #121014;
+      --bg-tint:   #1a171d;
+      --ink:       #f3ede4;
+      --ink-soft:  #b6ada0;
+      --ink-mute:  #7c7569;
+      --rule:      #2a2630;
+      --card:      #1c1920;
+      --editorial: #ff6e8f;
+      --editorial-wash: #241319;
+      --editorial-ink:  #ffd4de;
+      --wfrp:      #e8b94c;
+      --wfrp-wash: #201a10;
+      --wfrp-ink:  #f7e0a0;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.3), 0 2px 6px rgba(0,0,0,0.25);
+      --shadow-md: 0 20px 40px -12px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.3);
+    }
+  }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  html { scroll-behavior: smooth; }
+
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: #fafafa;
-    color: #1a1a1a;
+    background: var(--bg);
+    color: var(--ink);
     line-height: 1.6;
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
   }
 
-  .header {
-    padding: 48px 24px 40px;
-    text-align: center;
-    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #052962 100%);
-    color: #fff;
+  /* Grain + blurred colour blobs behind hero */
+  .backdrop {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
   }
-  .header h1 {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    margin-bottom: 8px;
+  .backdrop::before {
+    content: "";
+    position: absolute;
+    top: -20vh;
+    left: -10vw;
+    width: 70vw;
+    height: 70vw;
+    max-width: 900px;
+    max-height: 900px;
+    background: radial-gradient(circle at center, rgba(199,37,78,0.18), transparent 60%);
+    filter: blur(40px);
   }
-  .header p {
-    font-size: 15px;
-    color: rgba(255,255,255,0.65);
-    max-width: 500px;
+  .backdrop::after {
+    content: "";
+    position: absolute;
+    top: -10vh;
+    right: -15vw;
+    width: 60vw;
+    height: 60vw;
+    max-width: 800px;
+    max-height: 800px;
+    background: radial-gradient(circle at center, rgba(184,135,30,0.15), transparent 60%);
+    filter: blur(40px);
+  }
+  .grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.08 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  @media (prefers-color-scheme: dark) {
+    .grain { mix-blend-mode: screen; opacity: 0.15; }
+  }
+
+  main { position: relative; z-index: 2; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    max-width: 1100px;
     margin: 0 auto;
+    padding: 96px 32px 56px;
   }
-
-  .projects {
-    max-width: 720px;
-    margin: -24px auto 48px;
-    padding: 0 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .card {
-    background: #fff;
-    border: 1px solid #e5e5e5;
-    border-radius: 10px;
-    padding: 24px;
-    text-decoration: none;
-    color: inherit;
-    transition: box-shadow 0.2s, transform 0.2s;
-    display: block;
-  }
-  .card:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    transform: translateY(-2px);
-  }
-
-  .card-header {
+  .hero-kicker {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     gap: 12px;
+  }
+  .hero-kicker::before {
+    content: "";
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--ink-mute);
+  }
+  .hero h1 {
+    font-family: 'Fraunces', 'Times New Roman', serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-size: clamp(44px, 8vw, 96px);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+    max-width: 14ch;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--editorial);
+  }
+  .hero p {
+    font-size: clamp(16px, 1.6vw, 19px);
+    color: var(--ink-soft);
+    max-width: 56ch;
+    line-height: 1.55;
+  }
+  .hero-meta {
+    margin-top: 32px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 12px;
+    color: var(--ink-mute);
+    letter-spacing: 0.04em;
+  }
+  .hero-meta span { color: var(--ink); }
+
+  /* ---------- Category section ---------- */
+  .category {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 32px 56px;
+    border-top: 1px solid var(--rule);
+    position: relative;
+  }
+  .category-grid {
+    display: grid;
+    grid-template-columns: minmax(200px, 240px) 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .category-label {
+    position: sticky;
+    top: 32px;
+    padding-left: 16px;
+    border-left: 3px solid var(--accent, var(--editorial));
+  }
+  .category-label .index {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    display: block;
     margin-bottom: 10px;
   }
+  .category-label h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .category-label .count {
+    display: block;
+    margin-top: 14px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    color: var(--ink-mute);
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  /* ---------- Card ---------- */
+  .card {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    padding: 28px 26px 22px;
+    display: flex;
+    flex-direction: column;
+    min-height: 220px;
+    transition: transform 0.25s cubic-bezier(.2,.7,.2,1),
+                box-shadow 0.25s cubic-bezier(.2,.7,.2,1),
+                border-color 0.25s;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  .card::before {
+    /* thin coloured top bar, picks up category accent */
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent, var(--editorial));
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: color-mix(in srgb, var(--accent, var(--editorial)) 40%, var(--rule));
+  }
+  .card:hover::before { opacity: 1; }
+
   .card-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--accent-wash, var(--editorial-wash));
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
-  }
-  .card-title {
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: -0.3px;
-  }
-  .card-tag {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 2px 8px;
-    border-radius: 20px;
-    margin-left: auto;
-    flex-shrink: 0;
+    font-size: 22px;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    margin-bottom: 18px;
+    line-height: 1;
   }
 
+  .card h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 21px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+  }
+  .card h3 a {
+    color: var(--ink);
+    text-decoration: none;
+    background-image: linear-gradient(var(--accent, var(--editorial)), var(--accent, var(--editorial)));
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size 0.35s ease;
+  }
+  .card:hover h3 a { background-size: 100% 1px; }
+  .card h3 a::after {
+    content: " ↗";
+    font-family: 'Inter', sans-serif;
+    color: var(--accent, var(--editorial));
+    opacity: 0;
+    transition: opacity 0.25s, transform 0.25s;
+    display: inline-block;
+  }
+  .card:hover h3 a::after { opacity: 1; }
+
   .card-desc {
-    font-size: 14px;
-    color: #555;
+    font-size: 14.5px;
+    color: var(--ink-soft);
     line-height: 1.55;
-    margin-bottom: 12px;
+    flex: 1;
+    margin-bottom: 18px;
   }
 
   .card-links {
     display: flex;
-    gap: 16px;
-    font-size: 13px;
-    font-weight: 500;
+    gap: 18px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
   }
   .card-links a {
-    color: #052962;
+    color: var(--ink-mute);
     text-decoration: none;
+    position: relative;
+    z-index: 2;
+    transition: color 0.2s;
   }
-  .card-links a:hover { text-decoration: underline; }
-  .card-links .sep { color: #ddd; }
+  .card-links a:hover { color: var(--accent, var(--editorial)); }
 
-  .section-header {
-    font-size: 13px;
-    font-weight: 700;
+  /* Stretched overlay: makes the whole card clickable via the title link,
+     without nesting anchors. */
+  .card h3 a::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  /* ---------- Category theming ---------- */
+  .category[data-theme="editorial"] {
+    --accent: var(--editorial);
+    --accent-wash: var(--editorial-wash);
+    --accent-ink: var(--editorial-ink);
+  }
+  .category[data-theme="wfrp"] {
+    --accent: var(--wfrp);
+    --accent-wash: var(--wfrp-wash);
+    --accent-ink: var(--wfrp-ink);
+  }
+  .category[data-theme="wfrp"] {
+    background: linear-gradient(180deg, transparent, var(--bg-tint) 12%, var(--bg-tint) 88%, transparent);
+    max-width: none;
+    padding-left: max(32px, calc((100vw - 1100px) / 2 + 32px));
+    padding-right: max(32px, calc((100vw - 1100px) / 2 + 32px));
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 32px 64px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: #052962;
-    padding: 24px 0 4px;
-    border-bottom: 2px solid #052962;
-    margin-bottom: -4px;
+    color: var(--ink-mute);
   }
-  .section-header:first-child {
-    padding-top: 0;
+  footer a { color: var(--ink); text-decoration: none; }
+  footer a:hover { color: var(--editorial); }
+
+  /* ---------- Reveal on scroll ---------- */
+  .card {
+    opacity: 0;
+    transform: translateY(16px);
   }
-  .section-header.wfrp {
-    color: #8a6914;
-    border-bottom-color: #8a6914;
+  .card.in {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(.2,.7,.2,1), box-shadow 0.25s, border-color 0.25s;
   }
-  .wfrp-card {
-    border-color: #e8dcc4;
-    background: #fffcf5;
-  }
-  .wfrp-card:hover {
-    box-shadow: 0 8px 24px rgba(42,26,10,0.1);
+  @media (prefers-reduced-motion: reduce) {
+    .card { opacity: 1; transform: none; transition: none; }
+    .card:hover { transform: none; }
+    html { scroll-behavior: auto; }
   }
 
-  .footer {
-    text-align: center;
-    padding: 24px;
-    font-size: 12px;
-    color: #999;
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .hero { padding: 72px 24px 40px; }
+    .category { padding: 40px 24px 48px; }
+    .category[data-theme="wfrp"] {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+    .category-grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+    .category-label {
+      position: static;
+      padding-left: 14px;
+    }
+    .cards { grid-template-columns: 1fr; }
+    footer { padding: 32px 24px 48px; flex-direction: column; gap: 12px; text-align: center; }
   }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <h1>Projects & Demos</h1>
-  <p>Interactive prototypes, editorial tools, and experiments</p>
-</div>
+<div class="backdrop" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
 
-<div class="projects">
+<main>
+  <section class="hero">
+    <div class="hero-kicker">CJ Moran · Projects index</div>
+    <h1>Prototypes, tools <em>&amp;</em> experiments.</h1>
+    <p>A small shelf of things I've built — editorial toys, data visualisations, and the odd side project. Most are interactive; all are live.</p>
+    <div class="hero-meta" id="heroMeta"></div>
+  </section>
 
-  <div class="section-header">Editorial & Data Tools</div>
+  <div id="sections"></div>
 
-  <a class="card" href="https://peter-guillam123.github.io/guardian-world-map/">
-    <div class="card-header">
-      <div class="card-icon" style="background:#052962;color:#FFE500">&#127758;</div>
-      <span class="card-title">Guardian World News Map</span>
-      <span class="card-tag" style="background:#eef3ff;color:#052962">News</span>
-    </div>
-    <div class="card-desc">
-      Interactive map visualising Guardian news stories geographically. Filter by topic (Conflict, Climate, Politics, Economy, Health, Culture, Sport, Tech) and time window. Stories placed on a world map with freshness indicators.
-    </div>
-    <div class="card-links">
-      <a href="https://peter-guillam123.github.io/guardian-world-map/">Open tool</a>
-      <span class="sep">|</span>
-      <a href="https://github.com/peter-guillam123/guardian-world-map">GitHub</a>
-    </div>
-  </a>
+  <footer>
+    <div>Built with <a href="https://claude.com/claude-code">Claude Code</a></div>
+    <div><a href="https://github.com/peter-guillam123">github.com/peter-guillam123</a></div>
+  </footer>
+</main>
 
-  <a class="card" href="https://peter-guillam123.github.io/Longreaddiscover/">
-    <div class="card-header">
-      <div class="card-icon" style="background:#052962;color:#fff">&#128270;</div>
-      <span class="card-title">Guardian Long Read Search</span>
-      <span class="card-tag" style="background:#eef3ff;color:#052962">Search</span>
-    </div>
-    <div class="card-desc">
-      Search and discover Guardian long-read articles with an interactive browsing interface.
-    </div>
-    <div class="card-links">
-      <a href="https://peter-guillam123.github.io/Longreaddiscover/">Open tool</a>
-      <span class="sep">|</span>
-      <a href="https://github.com/peter-guillam123/Longreaddiscover">GitHub</a>
-    </div>
-  </a>
+<script>
+  // ────────────────────────────────────────────────────────────────
+  // Categories and projects. Add to these to grow the index.
+  // ────────────────────────────────────────────────────────────────
+  const CATEGORIES = [
+    { id: 'editorial', label: 'Editorial & Data Tools', theme: 'editorial' },
+    { id: 'wfrp',      label: 'Warhammer Fantasy Roleplay', theme: 'wfrp' },
+    // Future: { id: 'fiction', label: 'Fiction & Writing', theme: 'fiction' },
+  ];
 
-  <a class="card" href="https://peter-guillam123.github.io/pretext-guardian-live/demo-3-zero-jank-live-blog.html">
-    <div class="card-header">
-      <div class="card-icon" style="background:#AB0613;color:#fff">&#9888;</div>
-      <span class="card-title">Guardian Live Blog — Breaking Wire</span>
-      <span class="card-tag" style="background:#ffeaea;color:#AB0613">Live</span>
-    </div>
-    <div class="card-desc">
-      Replays a Guardian live blog with authentic styling. New updates arrive with pre-measured slot animations and typewriter text reveal, powered by the Pretext text measurement library. Zero-jank scroll compensation.
-    </div>
-    <div class="card-links">
-      <a href="https://peter-guillam123.github.io/pretext-guardian-live/demo-3-zero-jank-live-blog.html">Open demo</a>
-      <span class="sep">|</span>
-      <a href="https://github.com/peter-guillam123/pretext-guardian-live">GitHub</a>
-    </div>
-  </a>
+  const PROJECTS = [
+    {
+      category: 'editorial',
+      icon: '🌍',
+      title: 'Guardian World News Map',
+      desc:  'Interactive map visualising Guardian news stories geographically. Filter by topic (Conflict, Climate, Politics, Economy, Health, Culture, Sport, Tech) and time window.',
+      url:   'https://peter-guillam123.github.io/guardian-world-map/',
+      repo:  'https://github.com/peter-guillam123/guardian-world-map',
+    },
+    {
+      category: 'editorial',
+      icon: '📖',
+      title: 'Guardian Long Read Search',
+      desc:  'Search and discover Guardian long-read articles with an interactive browsing interface.',
+      url:   'https://longreaddiscover.onrender.com',
+      repo:  'https://github.com/peter-guillam123/Longreaddiscover',
+    },
+    {
+      category: 'editorial',
+      icon: '📰',
+      title: 'Guardian Live Blog — Breaking Wire',
+      desc:  'Replays a Guardian live blog with authentic styling. Updates arrive with pre-measured slot animations and typewriter text reveal, powered by the Pretext measurement library.',
+      url:   'https://peter-guillam123.github.io/pretext-guardian-live/demo-3-zero-jank-live-blog.html',
+      repo:  'https://github.com/peter-guillam123/pretext-guardian-live',
+    },
+    {
+      category: 'editorial',
+      icon: '💬',
+      title: 'Pull Quote Balancer',
+      desc:  'A pull quote embedded in article body copy. Pretext binary-searches for the tightest width that maintains the same line count — the body text reflows around the balanced quote in real time.',
+      url:   'https://peter-guillam123.github.io/pretext-guardian-live/demo-1-pull-quote-balancer.html',
+    },
+    {
+      category: 'editorial',
+      icon: '✏️',
+      title: 'Fluid Cutout Article Layout',
+      desc:  'A long-read article with a draggable silhouette cutout. Text reflows around the image in real time using variable widths per line. Drag it anywhere and watch the text part like water.',
+      url:   'https://peter-guillam123.github.io/pretext-guardian-live/demo-2-fluid-cutout.html',
+    },
+    {
+      category: 'editorial',
+      icon: '🌡️',
+      title: 'Canvas Data Journalism',
+      desc:  'Full-screen Canvas climate visualisation (1880–2025 temperature anomalies) with animated particles. Hover annotated points to see Pretext-wrapped callouts rendered directly on Canvas.',
+      url:   'https://peter-guillam123.github.io/pretext-guardian-live/demo-4-canvas-data-journalism.html',
+    },
+    {
+      category: 'editorial',
+      icon: '⚡',
+      title: '500-Block Stress Test',
+      desc:  'A grid of 500 Guardian article cards. Drag the width slider to trigger recalculation across every card. DOM mode layout-thrashes; Pretext mode uses cached measurements. Typically 100–200× faster.',
+      url:   'https://peter-guillam123.github.io/pretext-guardian-live/demo-5-stress-test.html',
+    },
+    {
+      category: 'wfrp',
+      icon: '🎲',
+      title: 'WFRP Test Resolver',
+      desc:  'AI-powered tool for resolving non-combat WFRP 4th Edition tests. Describe a situation and Claude recommends the test type, skill, and difficulty. Supports Simple, Dramatic, Opposed, and Extended tests.',
+      url:   'https://peter-guillam123.github.io/wfrp-test-resolver/',
+      repo:  'https://github.com/peter-guillam123/wfrp-test-resolver',
+    },
+    {
+      category: 'wfrp',
+      icon: '🛡️',
+      title: 'WFRP Character Creator',
+      desc:  'Interactive character creator for Warhammer Fantasy Roleplay 4th Edition. Generate characters with species, careers, attributes, skills, and talents following the official ruleset.',
+      url:   'https://peter-guillam123.github.io/wfrp-character-creator/',
+      repo:  'https://github.com/peter-guillam123/wfrp-character-creator',
+    },
+  ];
 
-  <a class="card" href="https://peter-guillam123.github.io/pretext-guardian-live/demo-1-pull-quote-balancer.html">
-    <div class="card-header">
-      <div class="card-icon" style="background:#052962;color:#FFE500">&#8220;</div>
-      <span class="card-title">Pull Quote Balancer</span>
-      <span class="card-tag" style="background:#eef3ff;color:#052962">Pretext</span>
-    </div>
-    <div class="card-desc">
-      A pull quote embedded in article body copy. Pretext binary-searches for the tightest width that maintains the same line count — the body text reflows around the balanced quote in real-time.
-    </div>
-    <div class="card-links">
-      <a href="https://peter-guillam123.github.io/pretext-guardian-live/demo-1-pull-quote-balancer.html">Open demo</a>
-    </div>
-  </a>
+  // ────────────────────────────────────────────────────────────────
+  // Render
+  // ────────────────────────────────────────────────────────────────
+  const sectionsEl = document.getElementById('sections');
+  const escapeHtml = (s) => s.replace(/[&<>"']/g, (c) => (
+    { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]
+  ));
 
-  <a class="card" href="https://peter-guillam123.github.io/pretext-guardian-live/demo-2-fluid-cutout.html">
-    <div class="card-header">
-      <div class="card-icon" style="background:#1a1a2e;color:#FFE500">&#9998;</div>
-      <span class="card-title">Fluid Cutout Article Layout</span>
-      <span class="card-tag" style="background:#eef3ff;color:#052962">Pretext</span>
-    </div>
-    <div class="card-desc">
-      A long-read article with a draggable silhouette cutout. Text reflows around the image in real-time using variable widths per line. Drag the image anywhere and watch the text part like water.
-    </div>
-    <div class="card-links">
-      <a href="https://peter-guillam123.github.io/pretext-guardian-live/demo-2-fluid-cutout.html">Open demo</a>
-    </div>
-  </a>
+  CATEGORIES.forEach((cat, i) => {
+    const items = PROJECTS.filter(p => p.category === cat.id);
+    if (!items.length) return;
 
-  <a class="card" href="https://peter-guillam123.github.io/pretext-guardian-live/demo-4-canvas-data-journalism.html">
-    <div class="card-header">
-      <div class="card-icon" style="background:#0a0a1a;color:#ff6b4a">&#9729;</div>
-      <span class="card-title">Canvas Data Journalism</span>
-      <span class="card-tag" style="background:#eef3ff;color:#052962">Pretext</span>
-    </div>
-    <div class="card-desc">
-      Full-screen Canvas climate visualisation (1880-2025 temperature anomalies) with animated particles. Hover annotated data points to see Pretext-wrapped text callouts rendered directly on Canvas.
-    </div>
-    <div class="card-links">
-      <a href="https://peter-guillam123.github.io/pretext-guardian-live/demo-4-canvas-data-journalism.html">Open demo</a>
-    </div>
-  </a>
+    const section = document.createElement('section');
+    section.className = 'category';
+    section.dataset.theme = cat.theme;
 
-  <a class="card" href="https://peter-guillam123.github.io/pretext-guardian-live/demo-5-stress-test.html">
-    <div class="card-header">
-      <div class="card-icon" style="background:#0a8a0a;color:#fff">&#9889;</div>
-      <span class="card-title">500-Block Stress Test</span>
-      <span class="card-tag" style="background:#eef3ff;color:#052962">Pretext</span>
-    </div>
-    <div class="card-desc">
-      A grid of 500 Guardian article cards. Drag the width slider to trigger recalculation across every card. DOM mode layout-thrashes; Pretext mode uses cached measurements. Typically 100-200x faster.
-    </div>
-    <div class="card-links">
-      <a href="https://peter-guillam123.github.io/pretext-guardian-live/demo-5-stress-test.html">Open demo</a>
-    </div>
-  </a>
+    const idx = String(i + 1).padStart(2, '0');
 
-  <div class="section-header wfrp">Warhammer Fantasy Roleplay</div>
+    section.innerHTML = `
+      <div class="category-grid">
+        <div class="category-label">
+          <span class="index">Section ${idx}</span>
+          <h2>${escapeHtml(cat.label)}</h2>
+          <span class="count">${items.length} project${items.length === 1 ? '' : 's'}</span>
+        </div>
+        <div class="cards">
+          ${items.map(p => `
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">${p.icon}</div>
+              <h3><a href="${escapeHtml(p.url)}">${escapeHtml(p.title)}</a></h3>
+              <p class="card-desc">${escapeHtml(p.desc)}</p>
+              <div class="card-links">
+                <a href="${escapeHtml(p.url)}">Open</a>
+                ${p.repo ? `<a href="${escapeHtml(p.repo)}">GitHub</a>` : ''}
+              </div>
+            </article>
+          `).join('')}
+        </div>
+      </div>
+    `;
+    sectionsEl.appendChild(section);
+  });
 
-  <a class="card wfrp-card" href="https://peter-guillam123.github.io/wfrp-test-resolver/">
-    <div class="card-header">
-      <div class="card-icon" style="background:#2a1a0a;color:#d4a24e">&#9881;</div>
-      <span class="card-title">WFRP Test Resolver</span>
-      <span class="card-tag" style="background:#fef5e7;color:#8a6914">Fan tool</span>
-    </div>
-    <div class="card-desc">
-      AI-powered tool for resolving non-combat WFRP 4th Edition tests. Describe a situation and Claude recommends the test type, skill, and difficulty. Supports Simple, Dramatic, Opposed, and Extended tests with manual or automatic dice rolling.
-    </div>
-    <div class="card-links">
-      <a href="https://peter-guillam123.github.io/wfrp-test-resolver/">Open tool</a>
-      <span class="sep">|</span>
-      <a href="https://github.com/peter-guillam123/wfrp-test-resolver">GitHub</a>
-    </div>
-  </a>
+  // Hero meta line
+  document.getElementById('heroMeta').innerHTML =
+    `<span>${PROJECTS.length}</span> experiments &nbsp;·&nbsp; ` +
+    `<span>${CATEGORIES.length}</span> categories &nbsp;·&nbsp; ` +
+    `Updated <span>${new Date().toLocaleDateString('en-GB', { year: 'numeric', month: 'short' })}</span>`;
 
-  <a class="card wfrp-card" href="https://peter-guillam123.github.io/wfrp-character-creator/">
-    <div class="card-header">
-      <div class="card-icon" style="background:#2a1a0a;color:#d4a24e">&#9876;</div>
-      <span class="card-title">WFRP Character Creator</span>
-      <span class="card-tag" style="background:#fef5e7;color:#8a6914">Fan tool</span>
-    </div>
-    <div class="card-desc">
-      Interactive character creator for Warhammer Fantasy Roleplay 4th Edition. Generate characters with species, careers, attributes, skills, and talents following the official ruleset.
-    </div>
-    <div class="card-links">
-      <a href="https://peter-guillam123.github.io/wfrp-character-creator/">Open tool</a>
-      <span class="sep">|</span>
-      <a href="https://github.com/peter-guillam123/wfrp-character-creator">GitHub</a>
-    </div>
-  </a>
-
-</div>
-
-<div class="footer">
-  Built with Claude Code
-</div>
+  // Reveal-on-scroll
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('in'), i * 40);
+          io.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -10% 0px' });
+    document.querySelectorAll('.card').forEach(c => io.observe(c));
+  } else {
+    document.querySelectorAll('.card').forEach(c => c.classList.add('in'));
+  }
+</script>
 
 </body>
 </html>
