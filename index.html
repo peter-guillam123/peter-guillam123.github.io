@@ -212,6 +212,76 @@
     gap: 20px;
   }
 
+  /* Tier 2 compact grid */
+  .tier-divider {
+    grid-column: 1 / -1;
+    margin: 28px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .tier-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+  .cards.cards--compact {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .cards--compact .cluster-label {
+    grid-column: 1 / -1;
+    margin: 8px 0 -2px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .cards--compact .cluster-label::before,
+  .cards--compact .cluster-label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+  .cards--compact .card {
+    padding: 16px 18px 14px;
+    min-height: 0;
+    border-radius: 10px;
+  }
+  .cards--compact .card-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  .cards--compact .card h3 {
+    font-size: 15.5px;
+    margin-bottom: 6px;
+    line-height: 1.25;
+  }
+  .cards--compact .card-desc {
+    font-size: 12.5px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .cards--compact .card-links {
+    padding-top: 10px;
+    font-size: 10px;
+    gap: 14px;
+  }
+
   /* ---------- Card ---------- */
   .card {
     position: relative;
@@ -428,68 +498,113 @@
   ];
 
   const PROJECTS = [
+    // ── Tier 1 — featured editorial projects ──
     {
       category: 'editorial',
+      tier: 1,
       icon: '📈',
       title: 'Guardian Angles',
-      desc:  'A decade of Guardian coverage rendered as curves. Compare up to four tags or words — e.g. climate crisis vs. cost of living — with monthly, weekly or daily granularity. Click any peak to read the headlines and see the section mix.',
-      url:   'https://peter-guillam123.github.io/guardian-angles/',
+      desc:  'A decade of Guardian coverage as curves. Compare up to four tags or words — climate crisis vs. cost of living, say — at monthly, weekly or daily granularity, then click any peak for the underlying headlines.',
+      url:   'https://guardian-angles.com',
       repo:  'https://github.com/peter-guillam123/guardian-angles',
     },
     {
       category: 'editorial',
-      icon: '🌍',
-      title: 'Guardian World News Map',
-      desc:  'Interactive map visualising Guardian news stories geographically. Filter by topic (Conflict, Climate, Politics, Economy, Health, Culture, Sport, Tech) and time window.',
-      url:   'https://peter-guillam123.github.io/guardian-world-map/',
-      repo:  'https://github.com/peter-guillam123/guardian-world-map',
-    },
-    {
-      category: 'editorial',
+      tier: 1,
       icon: '📖',
       title: 'Guardian Long Read Search',
-      desc:  'Search and discover Guardian long-read articles with an interactive browsing interface.',
+      desc:  'Find your way back into 8,000+ Guardian long reads — search, browse, filter.',
       url:   'https://longreaddiscover.onrender.com',
       repo:  'https://github.com/peter-guillam123/Longreaddiscover',
     },
     {
       category: 'editorial',
-      icon: '📰',
-      title: 'Guardian Live Blog — Breaking Wire',
-      desc:  'Replays a Guardian live blog with authentic styling. Updates arrive with pre-measured slot animations and typewriter text reveal, powered by the Pretext measurement library.',
-      url:   'https://peter-guillam123.github.io/pretext-guardian-live/demo-3-zero-jank-live-blog.html',
-      repo:  'https://github.com/peter-guillam123/pretext-guardian-live',
+      tier: 1,
+      icon: '🛰️',
+      title: 'Iran watcher',
+      desc:  'A daily-updated feed of primary-source documents on Iran — UN, IAEA, parliamentary and federal-register filings — gathered in one place.',
+      url:   'https://peter-guillam123.github.io/iran-watcher/',
+      repo:  'https://github.com/peter-guillam123/iran-watcher',
     },
     {
       category: 'editorial',
+      tier: 1,
+      icon: '🏛️',
+      title: 'House',
+      desc:  'A unified search across Hansard, written questions, ministerial statements and committee transcripts. Filter by date, party, member and House.',
+      url:   'https://peter-guillam123.github.io/House/',
+      repo:  'https://github.com/peter-guillam123/House',
+    },
+    {
+      category: 'editorial',
+      tier: 1,
+      icon: '⛪',
+      title: 'Church and State',
+      desc:  '1,390 redundant, at-risk and rescued churches across England and Wales, mapped against Heritage at Risk listings, with photos from Geograph and Commons.',
+      url:   'https://peter-guillam123.github.io/abandoned-churches/',
+      repo:  'https://github.com/peter-guillam123/abandoned-churches',
+    },
+
+    // ── Tier 2 — smaller editorial work ──
+    {
+      category: 'editorial',
+      tier: 2,
+      icon: '🌍',
+      title: 'Guardian World News Map',
+      desc:  'Guardian stories on a world map, filterable by topic and time window.',
+      url:   'https://peter-guillam123.github.io/guardian-world-map/',
+      repo:  'https://github.com/peter-guillam123/guardian-world-map',
+    },
+    {
+      category: 'editorial',
+      tier: 2,
+      group: 'pretext',
+      icon: '📰',
+      title: 'Live blog wire',
+      desc:  'Replay of a Guardian live blog with pre-measured slot animations and typewriter reveal.',
+      url:   'https://peter-guillam123.github.io/pretext-guardian-live/demo-3-zero-jank-live-blog.html',
+    },
+    {
+      category: 'editorial',
+      tier: 2,
+      group: 'pretext',
       icon: '💬',
-      title: 'Pull Quote Balancer',
-      desc:  'A pull quote embedded in article body copy. Pretext binary-searches for the tightest width that maintains the same line count — the body text reflows around the balanced quote in real time.',
+      title: 'Pull quote balancer',
+      desc:  'Binary-searches a pull quote’s width to keep line count stable as body text reflows.',
       url:   'https://peter-guillam123.github.io/pretext-guardian-live/demo-1-pull-quote-balancer.html',
     },
     {
       category: 'editorial',
+      tier: 2,
+      group: 'pretext',
       icon: '✏️',
-      title: 'Fluid Cutout Article Layout',
-      desc:  'A long-read article with a draggable silhouette cutout. Text reflows around the image in real time using variable widths per line. Drag it anywhere and watch the text part like water.',
+      title: 'Fluid cutout layout',
+      desc:  'Drag a silhouette around a long-read; text reflows around it line by line.',
       url:   'https://peter-guillam123.github.io/pretext-guardian-live/demo-2-fluid-cutout.html',
     },
     {
       category: 'editorial',
+      tier: 2,
+      group: 'pretext',
       icon: '🌡️',
-      title: 'Canvas Data Journalism',
-      desc:  'Full-screen Canvas climate visualisation (1880–2025 temperature anomalies) with animated particles. Hover annotated points to see Pretext-wrapped callouts rendered directly on Canvas.',
+      title: 'Canvas data journalism',
+      desc:  'Climate anomalies (1880–2025) on Canvas, with Pretext-wrapped hover callouts.',
       url:   'https://peter-guillam123.github.io/pretext-guardian-live/demo-4-canvas-data-journalism.html',
     },
     {
       category: 'editorial',
+      tier: 2,
+      group: 'pretext',
       icon: '⚡',
-      title: '500-Block Stress Test',
-      desc:  'A grid of 500 Guardian article cards. Drag the width slider to trigger recalculation across every card. DOM mode layout-thrashes; Pretext mode uses cached measurements. Typically 100–200× faster.',
+      title: '500-block stress test',
+      desc:  '500 article cards re-laid-out on width drag — DOM vs Pretext-cached, typically 100–200× faster.',
       url:   'https://peter-guillam123.github.io/pretext-guardian-live/demo-5-stress-test.html',
     },
+
+    // ── Warhammer Fantasy Roleplay ──
     {
       category: 'wfrp',
+      tier: 1,
       icon: '🎲',
       title: 'WFRP Test Resolver',
       desc:  'AI-powered tool for resolving non-combat WFRP 4th Edition tests. Describe a situation and Claude recommends the test type, skill, and difficulty. Supports Simple, Dramatic, Opposed, and Extended tests.',
@@ -498,6 +613,7 @@
     },
     {
       category: 'wfrp',
+      tier: 1,
       icon: '🛡️',
       title: 'WFRP Character Creator',
       desc:  'Interactive character creator for Warhammer Fantasy Roleplay 4th Edition. Generate characters with species, careers, attributes, skills, and talents following the official ruleset.',
@@ -505,6 +621,10 @@
       repo:  'https://github.com/peter-guillam123/wfrp-character-creator',
     },
   ];
+
+  const GROUP_LABELS = {
+    pretext: 'Pretext demos',
+  };
 
   // ────────────────────────────────────────────────────────────────
   // Render
@@ -514,9 +634,43 @@
     { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]
   ));
 
+  const cardHtml = (p, opts = {}) => `
+    <article class="card">
+      <div class="card-icon" aria-hidden="true">${p.icon}</div>
+      <h3><a href="${escapeHtml(p.url)}">${escapeHtml(p.title)}</a></h3>
+      <p class="card-desc">${escapeHtml(p.desc)}</p>
+      <div class="card-links">
+        <a href="${escapeHtml(p.url)}">Open</a>
+        ${p.repo && !opts.hideRepo ? `<a href="${escapeHtml(p.repo)}">GitHub</a>` : ''}
+      </div>
+    </article>
+  `;
+
+  const compactBlockHtml = (tier2Items) => {
+    if (!tier2Items.length) return '';
+    const ungrouped = tier2Items.filter(p => !p.group);
+    const grouped   = tier2Items.filter(p => p.group);
+    const groups = {};
+    grouped.forEach(p => { (groups[p.group] = groups[p.group] || []).push(p); });
+
+    let inner = ungrouped.map(p => cardHtml(p, { hideRepo: true })).join('');
+    Object.keys(groups).forEach(gk => {
+      inner += `<div class="cluster-label"><span>${escapeHtml(GROUP_LABELS[gk] || gk)}</span></div>`;
+      inner += groups[gk].map(p => cardHtml(p, { hideRepo: true })).join('');
+    });
+
+    return `
+      <div class="tier-divider"><span>More</span></div>
+      <div class="cards cards--compact">${inner}</div>
+    `;
+  };
+
   CATEGORIES.forEach((cat, i) => {
     const items = PROJECTS.filter(p => p.category === cat.id);
     if (!items.length) return;
+
+    const tier1 = items.filter(p => (p.tier || 1) === 1);
+    const tier2 = items.filter(p => p.tier === 2);
 
     const section = document.createElement('section');
     section.className = 'category';
@@ -531,18 +685,11 @@
           <h2>${escapeHtml(cat.label)}</h2>
           <span class="count">${items.length} project${items.length === 1 ? '' : 's'}</span>
         </div>
-        <div class="cards">
-          ${items.map(p => `
-            <article class="card">
-              <div class="card-icon" aria-hidden="true">${p.icon}</div>
-              <h3><a href="${escapeHtml(p.url)}">${escapeHtml(p.title)}</a></h3>
-              <p class="card-desc">${escapeHtml(p.desc)}</p>
-              <div class="card-links">
-                <a href="${escapeHtml(p.url)}">Open</a>
-                ${p.repo ? `<a href="${escapeHtml(p.repo)}">GitHub</a>` : ''}
-              </div>
-            </article>
-          `).join('')}
+        <div>
+          <div class="cards">
+            ${tier1.map(p => cardHtml(p)).join('')}
+          </div>
+          ${compactBlockHtml(tier2)}
         </div>
       </div>
     `;
