@@ -22,6 +22,9 @@
     --wfrp:      #b8871e;
     --wfrp-wash: #faf3e2;
     --wfrp-ink:  #4a340a;
+    --games:     #0b7480;
+    --games-wash: #eef8f9;
+    --games-ink:  #063a40;
     --shadow-sm: 0 1px 2px rgba(30,20,10,0.04), 0 2px 6px rgba(30,20,10,0.04);
     --shadow-md: 0 10px 30px -12px rgba(30,20,10,0.18), 0 4px 12px rgba(30,20,10,0.05);
   }
@@ -40,6 +43,9 @@
       --wfrp:      #e8b94c;
       --wfrp-wash: #201a10;
       --wfrp-ink:  #f7e0a0;
+      --games:     #39e0ec;
+      --games-wash: #0f1f21;
+      --games-ink:  #c8f6fa;
       --shadow-sm: 0 1px 2px rgba(0,0,0,0.3), 0 2px 6px rgba(0,0,0,0.25);
       --shadow-md: 0 20px 40px -12px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.3);
     }
@@ -404,6 +410,11 @@
     --accent-wash: var(--wfrp-wash);
     --accent-ink: var(--wfrp-ink);
   }
+  .category[data-theme="games"] {
+    --accent: var(--games);
+    --accent-wash: var(--games-wash);
+    --accent-ink: var(--games-ink);
+  }
   .category[data-theme="wfrp"] {
     background: linear-gradient(180deg, transparent, var(--bg-tint) 12%, var(--bg-tint) 88%, transparent);
     max-width: none;
@@ -494,6 +505,7 @@
   const CATEGORIES = [
     { id: 'editorial', label: 'Editorial & Data Tools', theme: 'editorial' },
     { id: 'wfrp',      label: 'Warhammer Fantasy Roleplay', theme: 'wfrp' },
+    { id: 'games',     label: 'Games', theme: 'games' },
     // Future: { id: 'fiction', label: 'Fiction & Writing', theme: 'fiction' },
   ];
 
@@ -682,6 +694,17 @@
       desc:  'Interactive character creator for Warhammer Fantasy Roleplay 4th Edition. Generate characters with species, careers, attributes, skills, and talents following the official ruleset.',
       url:   'https://peter-guillam123.github.io/wfrp-character-creator/',
       repo:  'https://github.com/peter-guillam123/wfrp-character-creator',
+    },
+
+    // ── Games ──
+    {
+      category: 'games',
+      tier: 1,
+      icon: '🤖',
+      title: 'KLEPTO',
+      desc:  'A roguelite after Quazatron (1986). You are a small droid in a tower of bigger ones: grapple them, beat them in a circuit-board duel and steal their parts. Five decks, nine parts and a 1986 mode that draws it like a ZX Spectrum. Desktop, with a keyboard or a gamepad.',
+      url:   'https://peter-guillam123.github.io/quazatron/',
+      repo:  'https://github.com/peter-guillam123/quazatron',
     },
   ];
 
